@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071712">
+<title>FACTORY D • Value Added Factory Operations</title>
+<style>
+:root{
+ --bg:#071510;--bg2:#0b1d17;--card:#10251e;--card2:#132b23;--line:#28483d;
+ --text:#f1f6f2;--muted:#a8b9b1;--green:#69d391;--green2:#43b875;
+ --amber:#e7b95e;--red:#ef7777;--shadow:0 12px 30px rgba(0,0,0,.22);--r:22px;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{min-height:100vh;overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;z-index:-2;opacity:.07;pointer-events:none}
+body:before{width:240px;height:240px;left:-55px;top:370px;background:
+ radial-gradient(ellipse at 50% 50%,#d39a45 0 38%,transparent 39%),
+ radial-gradient(ellipse at 50% 50%,#8b5a2b 0 23%,transparent 24%);
+ transform:rotate(-28deg);filter:blur(.2px)}
+body:after{width:290px;height:290px;right:-90px;bottom:70px;background:
+ radial-gradient(ellipse at 50% 50%,#7d4e25 0 44%,transparent 45%),
+ radial-gradient(ellipse at 50% 45%,#c58a3b 0 25%,transparent 26%);
+ transform:rotate(35deg);filter:blur(.2px)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:760px;margin:auto;min-height:100vh;padding-bottom:84px}
+.header{position:sticky;top:0;z-index:20;background:rgba(7,21,16,.96);backdrop-filter:blur(12px);border-bottom:1px solid #203d33}
+.headerTop{display:flex;align-items:center;justify-content:space-between;padding:18px 16px 12px}
+.brand{display:flex;gap:10px;align-items:center}.brandNut{font-size:29px}.brandTitle{font-weight:900;font-size:21px;letter-spacing:.5px}.brandSub{font-size:11px;color:var(--muted);margin-top:2px}
+.primary{border:0;background:var(--green);color:#07130e;font-weight:900;border-radius:17px;padding:13px 17px;box-shadow:0 8px 18px rgba(75,205,130,.18)}
+.nav{display:flex;gap:9px;overflow-x:auto;padding:0 16px 13px;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}
+.nav button{white-space:nowrap;border:1px solid var(--line);background:#0e211b;color:var(--text);border-radius:16px;padding:12px 16px;font-weight:800}.nav button.active{background:var(--green);color:#07130e;border-color:var(--green)}
+main{padding:18px 16px}.page{display:none}.page.active{display:block}
+.hero{border:1px solid #315347;border-radius:26px;padding:23px;background:linear-gradient(135deg,rgba(22,58,45,.88),rgba(45,48,28,.65));box-shadow:var(--shadow);margin-bottom:18px}
+.hero h1{margin:0 0 7px;font-size:23px}.hero p{margin:0;color:var(--muted);font-weight:650}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:rgba(15,36,29,.93);border:1px solid #29483d;border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+.stat{min-height:112px}.stat.click{cursor:pointer}.stat b{display:block;font-size:34px;margin-top:10px}.label{color:var(--muted);font-weight:800;font-size:13px}.sectionTitle{font-size:18px;margin:24px 0 12px}
+.actions .card{min-height:126px;cursor:pointer}.actionIcon{font-size:30px}.actionTitle{font-size:16px;font-weight:900;margin-top:8px}.actionSub{font-size:12px;color:var(--muted);margin-top:4px}
+.sectionHead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:4px 0 13px}.sectionHead h2{margin:0;font-size:20px}.ghost{border:1px solid var(--line);background:#0f241d;color:var(--text);padding:10px 13px;border-radius:13px;font-weight:800}
+.form{display:grid;gap:12px}.field{display:grid;gap:6px}.field label{font-size:12px;color:var(--muted);font-weight:800}.field input,.field select,.field textarea{width:100%;background:#0b1c16;color:var(--text);border:1px solid #2b4a40;border-radius:14px;padding:13px;outline:none}.field textarea{min-height:88px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.btn{border:1px solid var(--line);background:#102820;color:var(--text);padding:12px 14px;border-radius:14px;font-weight:850}.btn.green{background:var(--green);color:#06130d;border-color:var(--green)}.btn.red{background:#3a1919;border-color:#673030}.btn.small{padding:9px 11px;font-size:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--line);border-radius:999px;padding:8px 11px;background:#0d211a;color:var(--muted);font-size:12px}.chip.on{border-color:var(--green);color:#07130e;background:var(--green)}
+.packageGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.package{border:1px solid var(--line);border-radius:16px;padding:12px;background:#0c2019}.package .pkgTop{display:flex;justify-content:space-between;align-items:center;font-weight:900}.package input{margin-top:8px}
+.memberGrid{display:grid;gap:8px}.memberGrid input{width:100%;background:#0b1c16;color:var(--text);border:1px solid #2b4a40;border-radius:12px;padding:11px}
+.notice{padding:12px 14px;border-radius:14px;background:#172b23;border:1px solid #315347;color:var(--muted);font-size:12px}
+.progress{height:10px;border-radius:99px;background:#1a3028;overflow:hidden}.progress i{display:block;height:100%;background:var(--green);border-radius:99px}
+.statusRow{display:flex;justify-content:space-between;align-items:center;gap:10px}.statusPill{padding:7px 10px;border-radius:999px;background:#18372a;color:var(--green);font-size:11px;font-weight:900}
+.list{display:grid;gap:12px}.item{background:rgba(15,36,29,.95);border:1px solid #29483d;border-radius:19px;padding:15px}.itemTop{display:flex;justify-content:space-between;gap:10px}.item h3{margin:0;font-size:15px}.muted{color:var(--muted);font-size:12px}.stock{font-weight:900}.itemActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.categoryGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.cat{min-height:145px;padding:20px;border-radius:22px;border:1px solid #29483d;background:#10251e;cursor:pointer;box-shadow:var(--shadow)}.catIcon{font-size:34px}.cat h3{margin:11px 0 4px}.cat p{margin:0;color:var(--muted);font-size:12px}
+.search{margin-bottom:13px}.search input{width:100%;background:#0b1c16;border:1px solid #2b4a40;color:var(--text);border-radius:15px;padding:13px}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.66);display:none;align-items:flex-end}.modal.show{display:flex}.modalBox{width:100%;max-width:760px;margin:auto auto 0;background:#0c1f18;border:1px solid #315347;border-radius:25px 25px 0 0;padding:18px;max-height:90vh;overflow:auto}.modalHead{display:flex;justify-content:space-between;align-items:center}.modalHead h3{margin:0}.close{border:0;background:#20382f;color:var(--text);border-radius:50%;width:38px;height:38px;font-size:20px}
+.fileBox{border:1px dashed #396255;padding:14px;border-radius:15px;background:#0b1c16}.fileBox input{width:100%}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:9px;border-bottom:1px solid #234237}th{color:var(--muted)}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:rgba(7,21,16,.97);border-top:1px solid #203d33;padding:8px 10px;z-index:30}.bottomIn{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:5px}.bottom button{border:0;background:transparent;color:var(--muted);font-size:10px;padding:7px 2px}.bottom button.active{color:var(--green)}.bottom span{display:block;font-size:19px;margin-bottom:2px}
+.toast{position:fixed;left:50%;bottom:78px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#eaf8ef;color:#07130e;padding:12px 15px;border-radius:13px;font-weight:850;z-index:80;transition:.2s;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:390px){.grid2,.categoryGrid,.packageGrid{grid-template-columns:1fr}.row2{grid-template-columns:1fr}.headerTop{padding-left:12px;padding-right:12px}main{padding:14px 12px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="header">
+ <div class="headerTop">
+  <div class="brand"><div class="brandNut">🥜</div><div><div class="brandTitle">FACTORY D</div><div class="brandSub">Value Added Factory • Operations</div></div></div>
+  <button class="primary" onclick="go('production')">＋ Production</button>
+ </div>
+ <nav class="nav" id="topNav">
+  <button data-page="home" onclick="go('home')">⌂ Home</button>
+  <button data-page="production" onclick="go('production')">🏭 Production</button>
+  <button data-page="batches" onclick="go('batches')">🔎 Batches</button>
+  <button data-page="inventory" onclick="go('inventory')">📦 Inventory</button>
+  <button data-page="manpower" onclick="go('manpower')">👷 Manpower</button>
+  <button data-page="reports" onclick="go('reports')">📊 Reports</button>
+ </nav>
+</header>
+
+<main>
+<section id="home" class="page">
+ <div class="hero"><h1>Factory D Operations</h1><p>Production • Inventory • Batch Traceability • Manpower</p></div>
+ <div class="grid2">
+  <div class="card stat click" onclick="go('batches')"><div class="label">Batches</div><b id="statBatches">0</b></div>
+  <div class="card stat click" onclick="go('inventory')"><div class="label">Inventory Items</div><b id="statInventory">0</b></div>
+  <div class="card stat click" onclick="go('manpower')"><div class="label">Employees</div><b id="statEmployees">0</b></div>
+  <div class="card stat click" onclick="go('inventory')"><div class="label">Low / Zero Stock</div><b id="statLow">0</b></div>
+ </div>
+ <div class="sectionTitle">Quick Actions</div>
+ <div class="grid2 actions">
+  <div class="card" onclick="go('production')"><div class="actionIcon">🏭</div><div class="actionTitle">Today's Production</div><div class="actionSub">Create / update batch</div></div>
+  <div class="card" onclick="go('batches')"><div class="actionIcon">🔎</div><div class="actionTitle">Search Batch</div><div class="actionSub">Full batch history</div></div>
+  <div class="card" onclick="go('inventory')"><div class="actionIcon">📦</div><div class="actionTitle">Inventory</div><div class="actionSub">Choose category & manage stock</div></div>
+  <div class="card" onclick="go('manpower')"><div class="actionIcon">👷</div><div class="actionTitle">Manpower</div><div class="actionSub">Name + shift + edit</div></div>
+  <div class="card" onclick="go('reports')"><div class="actionIcon">📊</div><div class="actionTitle">Reports</div><div class="actionSub">Production & inventory summary</div></div>
+ </div>
+ <div class="sectionTitle">Current Running Status</div>
+ <div id="homeRunning" class="list"></div>
+</section>
+
+<section id="inventory" class="page">
+ <div class="sectionHead"><h2>Inventory</h2><button class="ghost" onclick="go('home')">← Home</button></div>
+ <div id="inventoryCategories">
+  <div class="notice" style="margin-bottom:14px">ஒரு category-ஐ தேர்வு செய்து அதற்குள் stock பார்க்கவும் / Add Stock செய்யவும். Categories mix ஆகாது.</div>
+  <div class="categoryGrid">
+   <div class="cat" onclick="openInventoryCategory('raw')"><div class="catIcon">🌰</div><h3>RAW MATERIALS</h3><p>Raw material • KG</p></div>
+   <div class="cat" onclick="openInventoryCategory('packing')"><div class="catIcon">🛍️</div><h3>PACKING MATERIAL</h3><p>Pouches / packing items</p></div>
+   <div class="cat" onclick="openInventoryCategory('box')"><div class="catIcon">📦</div><h3>BOX</h3><p>All box items</p></div>
+   <div class="cat" onclick="openInventoryCategory('sticker')"><div class="catIcon">🏷️</div><h3>STICKERS</h3><p>Pouch / box / oil stickers</p></div>
+  </div>
+ </div>
+ <div id="inventoryList" style="display:none"></div>
+</section>
+
+<section id="production" class="page">
+ <div class="sectionHead"><h2>Production</h2><button class="ghost" onclick="go('home')">← Home</button></div>
+ <div class="notice" style="margin-bottom:14px">Batch Create செய்யும் போது Raw Material, Pouch, Sticker, Box stock automatically deduct ஆகும். Edit செய்தால் பழைய deduction reverse செய்து புதிய values apply ஆகும்.</div>
+ <form id="productionForm" class="form" onsubmit="saveBatch(event)">
+  <input type="hidden" id="editingBatch">
+  <div class="card">
+   <div class="row2">
+    <div class="field"><label>Product / Production Type</label><input id="product" required placeholder="Example: Roasted Almond"></div>
+    <div class="field"><label>Batch Number</label><input id="batchNo" required placeholder="BF-0930ARPP01"></div>
+   </div>
+   <div class="row2">
+    <div class="field"><label>Raw Material</label><select id="rawMaterial"></select></div>
+    <div class="field"><label>Variant / Type</label><input id="variant" placeholder="Regular / USA / Touch"></div>
+   </div>
+   <div class="row2">
+    <div class="field"><label>Raw Quantity (KG)</label><input id="rawQty" type="number" step="0.001" min="0"></div>
+    <div class="field"><label>Roasting Operator</label><select id="roaster"></select></div>
+   </div>
+   <div class="row2">
+    <div class="field"><label>Seasoning Person</label><select id="seasoning"></select></div>
+    <div class="field"><label>Cooling Time</label><input id="cooling" placeholder="30 min"></div>
+   </div>
+  </div>
+
+  <div class="card">
+   <h3 style="margin-top:0">Packed Members — minimum 6</h3>
+   <div id="memberGrid" class="memberGrid"></div>
+  </div>
+
+  <div class="card">
+   <h3 style="margin-top:0">Packing & Quality</h3>
+   <div class="row2">
+    <div class="field"><label>Nitrogen Value</label><input id="nitrogen" placeholder="Example: 99.9"></div>
+    <div class="field"><label>Packed Quantity</label><input id="packedQty" type="number" step="0.001" min="0"></div>
+   </div>
+   <div class="field"><label>Package sizes & pouch quantities</label><div class="packageGrid" id="packageGrid"></div></div>
+   <div class="row2">
+    <div class="field"><label>FG</label><input id="fg" type="number" step="0.001" min="0"></div>
+    <div class="field"><label>Damage</label><input id="damage" type="number" step="0.001" min="0"></div>
+   </div>
+   <div class="row2">
+    <div class="field"><label>Return</label><input id="fgReturn" type="number" step="0.001" min="0"></div>
+    <div class="field"><label>FG Rejection</label><input id="rejection" type="number" step="0.001" min="0"></div>
+   </div>
+   <div class="row2">
+    <div class="field"><label>Self Life</label><input id="selfLife" placeholder="Example: 6 Months"></div>
+    <div class="field"><label>Pouches for Box</label><input id="pouchesPerBox" type="number" min="0" step="1"></div>
+   </div>
+  </div>
+
+  <div class="card">
+   <h3 style="margin-top:0">Packing Material</h3>
+   <div class="row2">
+    <div class="field"><label>Packing Material</label><select id="packingMaterial"></select></div>
+    <div class="field"><label>Used (PCS)</label><input id="packingUsed" type="number" step="1" min="0"></div>
+   </div>
+   <div class="row2">
+    <div class="field"><label>Taken (PCS)</label><input id="packingTaken" type="number" step="1" min="0"></div>
+    <div class="field"><label>Damage (PCS)</label><input id="packingDamage" type="number" step="1" min="0"></div>
+   </div>
+   <div class="row2">
+    <div class="field"><label>Return (PCS)</label><input id="packingReturn" type="number" step="1" min="0"></div>
+    <div class="field"><label>Sticker</label><select id="sticker"></select></div>
+   </div>
+   <div class="row2">
+    <div class="field"><label>Sticker Taken (PCS)</label><input id="stickerTaken" type="number" step="1" min="0"></div>
+    <div class="field"><label>Sticker Return (PCS)</label><input id="stickerReturn" type="number" step="1" min="0"></div>
+   </div>
+  </div>
+
+  <div class="card">
+   <h3 style="margin-top:0">Box & Movement</h3>
+   <div class="row2">
+    <div class="field"><label>Box</label><select id="box"></select></div>
+    <div class="field"><label>Box Taken</label><input id="boxTaken" type="number" step="1" min="0"></div>
+   </div>
+   <div class="row2">
+    <div class="field"><label>Box Return</label><input id="boxReturn" type="number" step="1" min="0"></div>
+    <div class="field"><label>Pallet Number</label><input id="pallet"></div>
+   </div>
+   <div class="field"><label>Movement Person</label><select id="movement"></select></div>
+  </div>
+
+  <div class="card">
+   <h3 style="margin-top:0">Running Batch Status</h3>
+   <div class="row2">
+    <div class="field"><label>Current Stage</label><select id="stage">
+     <option>Raw Material</option><option>Roasting</option><option>Seasoning</option><option>Cooling</option><option>Packing</option><option>FG Completed</option><option>Boxing</option><option>Pallet</option><option>Movement</option><option>Completed</option>
+    </select></div>
+    <div class="field"><label>Progress %</label><select id="progress"><option>25</option><option>50</option><option>75</option><option>100</option></select></div>
+   </div>
+   <div class="progress"><i id="progressBar" style="width:25%"></i></div>
+  </div>
+
+  <div class="card">
+   <div class="field"><label>BMR / LOG Sheet & Photos / Documents (10+ supported)</label><div class="fileBox"><input id="files" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.webp,.xls,.xlsx,.doc,.docx"><div id="fileNames" class="muted" style="margin-top:8px">No files selected</div></div></div>
+   <div class="field" style="margin-top:12px"><label>Notes</label><textarea id="notes"></textarea></div>
+  </div>
+  <button class="btn green" type="submit">💾 Save Batch</button>
+  <button class="btn" type="button" onclick="resetProduction()">Clear Form</button>
+ </form>
+</section>
+
+<section id="batches" class="page">
+ <div class="sectionHead"><h2>Batch Search</h2><button class="ghost" onclick="go('production')">＋ New Batch</button></div>
+ <div class="search"><input id="batchSearch" oninput="renderBatches()" placeholder="Search Batch Number / Product"></div>
+ <div id="batchList" class="list"></div>
+</section>
+
+<section id="manpower" class="page">
+ <div class="sectionHead"><h2>Manpower</h2><button class="primary" onclick="openEmployeeModal()">＋ Employee</button></div>
+ <div class="notice" style="margin-bottom:14px">Employee Name + Shift மட்டும். Production-ல் Operator / Seasoning / Packing Members / Movement Person selection ஆக வரும்.</div>
+ <div id="employeeList" class="list"></div>
+</section>
+
+<section id="reports" class="page">
+ <div class="sectionHead"><h2>Reports</h2><button class="ghost" onclick="renderReports()">↻ Refresh</button></div>
+ <div class="grid2">
+  <div class="card stat"><div class="label">Total Batches</div><b id="repBatches">0</b></div>
+  <div class="card stat"><div class="label">FG</div><b id="repFG">0</b></div>
+  <div class="card stat"><div class="label">FG Rejection</div><b id="repReject">0</b></div>
+  <div class="card stat"><div class="label">Inventory Items</div><b id="repInv">0</b></div>
+  <div class="card stat"><div class="label">Low / Zero Stock</div><b id="repLow">0</b></div>
+ </div>
+ <div class="sectionTitle">Production History</div>
+ <div id="reportHistory" class="list"></div>
+</section>
+</main>
+</div>
+
+<div class="bottom"><div class="bottomIn">
+ <button data-page="home" onclick="go('home')"><span>⌂</span>Home</button>
+ <button data-page="production" onclick="go('production')"><span>🏭</span>Production</button>
+ <button data-page="batches" onclick="go('batches')"><span>🔎</span>Batches</button>
+ <button data-page="inventory" onclick="go('inventory')"><span>📦</span>Inventory</button>
+ <button data-page="reports" onclick="go('reports')"><span>📊</span>Reports</button>
+</div></div>
+
+<div id="modal" class="modal" onclick="if(event.target===this)closeModal()"><div class="modalBox" id="modalBox"></div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const RAW=[
+"NP Regular","NP USA","NP Jumbo","NP Regular Touch","NP USA Touch","NP Jumbo Touch","NP Regular Pieces","NP USA Pieces","NP Jumbo Pieces","NP Dark","NP Shrunk",
+"IP Regular","IP Large","IP Jumbo","IP Regular Touch","IP USA Touch","IP Jumbo Touch","IP Regular Pieces","IP USA Pieces","IP Jumbo Pieces","IP Dark","IP Shrunk",
+"WALNUT HALF","WALNUT QUARTER","WALNUT PIECES"];
+const PACKING=[
+"1KG ALMOND POUCH","1KG WALNUT POUCH","200G ROASTED AND SALTED POUCH","200G RAW ALMOND POUCH","200G DRY ROASTED WALNUT POUCH","500G RAW ALMONDS POUCH","100G BUTTER TOFFEE POUCH","100G JALAPENO CHEESE POUCH","100G HONEY ROASTED WALNUT POUCH","100G PERI PERI POUCH","100G HOT AND SPICY POUCH","15G PERI PERI POUCH","15G HOT AND SPICY POUCH",
+"1 LITTER ALMOND OIL TIN","5 LITTER ALMOND OIL TIN","100ML ALMOND OIL BOTTLE","50 ML ALMOND OIL BOTTLE","100 ML ALMOND OIL STICKER","50 ML ALMOND OIL STICKER","100 ML ALMOND OIL TAG",
+"VACUUM PACK TRANSPARENT POUCH",];
+const BOX=["10 KG WALNUT BOX","10 KG 5 PLY CALIFORNIA BOX","Brown Box","Almond Oil Display Box",];
+const STICKERS=["Pouch Stickers","Box Stickers","100 ML ALMOND OIL STICKER","50 ML ALMOND OIL STICKER","100 ML ALMOND OIL TAG"];
+const KEY="factoryD_v4";
+let db=JSON.parse(localStorage.getItem(KEY)||"null")||{inventory:{raw:{},packing:{},box:{},sticker:{}},employees:[],batches:[]};
+function saveDB(){localStorage.setItem(KEY,JSON.stringify(db))}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function toast(t){let x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),2200)}
+function go(page){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(page).classList.add("active");document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===page));window.scrollTo({top:0,behavior:"smooth"});renderAll()}
+function seedMasters(){
+ const ensure=(cat,arr)=>arr.forEach(n=>{if(db.inventory[cat][n]==null)db.inventory[cat][n]=0});
+ ensure("raw",RAW);ensure("packing",PACKING);ensure("box",BOX);ensure("sticker",STICKERS);saveDB()
+}
+function opts(arr,placeholder="Select"){return `<option value="">${placeholder}</option>`+arr.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("")}
+function refreshSelections(){
+ document.getElementById("rawMaterial").innerHTML=opts(Object.keys(db.inventory.raw),"Select Raw Material");
+ document.getElementById("packingMaterial").innerHTML=opts(Object.keys(db.inventory.packing),"Select Packing Material");
+ document.getElementById("box").innerHTML=opts(Object.keys(db.inventory.box),"Select Box");
+ document.getElementById("sticker").innerHTML=opts(Object.keys(db.inventory.sticker),"Select Sticker");
+ let emp=["",...db.employees.map(e=>e.name)];
+ ["roaster","seasoning","movement"].forEach(id=>document.getElementById(id).innerHTML=opts(emp.slice(1), "Select Employee"));
+ let mg=document.getElementById("memberGrid"); if(!mg.children.length){mg.innerHTML=Array.from({length:6},(_,i)=>`<input data-member="${i}" placeholder="Packing Member ${i+1}">`).join("")}
+ let pg=document.getElementById("packageGrid");if(!pg.children.length){
+  pg.innerHTML=["100G","200G","1KG","15G / Sample"].map(p=>`<div class="package"><div class="pkgTop"><span>${p}</span><span>PCS</span></div><select class="pkgMat" data-size="${p}">${opts(Object.keys(db.inventory.packing),"Pouch / Packing Material")}</select><input class="pkgQty" data-size="${p}" type="number" min="0" step="1" placeholder="Quantity"></div>`).join("")
+ }
+}
+function openInventoryCategory(cat){
+ document.getElementById("inventoryCategories").style.display="none";let box=document.getElementById("inventoryList");box.style.display="block";
+ const names=Object.keys(db.inventory[cat]);const title={raw:"RAW MATERIALS",packing:"PACKING MATERIAL",box:"BOX",sticker:"STICKERS"}[cat];
+ box.innerHTML=`<div class="sectionHead"><h2>${title}</h2><div><button class="ghost" onclick="showInventoryCategories()">← Categories</button></div></div>
+ <div class="row2" style="margin-bottom:12px"><button class="btn green" onclick="addInventoryItem('${cat}')">＋ Add ${title}</button><button class="btn" onclick="showInventoryCategories()">Category Menu</button></div>
+ <div class="list">${names.map(n=>inventoryItem(cat,n)).join("")}</div>`;
+}
+function showInventoryCategories(){document.getElementById("inventoryCategories").style.display="block";document.getElementById("inventoryList").style.display="none"}
+function inventoryItem(cat,name){
+ let unit=cat==="raw"?"KG":"PCS",stock=Number(db.inventory[cat][name]||0);
+ return `<div class="item"><div class="itemTop"><div><h3>${esc(name)}</h3><div class="muted">${cat==="raw"?"Raw Material":titleCat(cat)}</div></div><div class="stock">${fmt(stock)} ${unit}</div></div>
+ <div class="itemActions"><button class="btn small green" onclick="addStock('${cat}',${JSON.stringify(name)})">＋ Add Stock</button><button class="btn small" onclick="editInventory('${cat}',${JSON.stringify(name)})">✏️ Edit</button></div></div>`;
+}
+function titleCat(c){return c==="packing"?"Packing Material":c==="box"?"Box":"Sticker"}
+function fmt(n){return Number(n||0).toLocaleString("en-IN",{maximumFractionDigits:3})}
+function addInventoryItem(cat){
+ openModal(`<div class="modalHead"><h3>Add New ${titleCat(cat)}</h3><button class="close" onclick="closeModal()">×</button></div>
+ <div class="form" style="margin-top:14px"><div class="field"><label>Name</label><input id="newInvName"></div><div class="field"><label>Opening / Current Stock</label><input id="newInvQty" type="number" min="0" step="0.001"></div><button class="btn green" onclick="createInventory('${cat}')">Save</button></div>`);
+}
+function createInventory(cat){let n=document.getElementById("newInvName").value.trim(),q=Number(document.getElementById("newInvQty").value||0);if(!n)return toast("Name enter pannunga");if(db.inventory[cat][n]==null)db.inventory[cat][n]=q;else db.inventory[cat][n]+=q;saveDB();closeModal();openInventoryCategory(cat);refreshSelections();toast("Inventory saved")}
+function addStock(cat,name){
+ openModal(`<div class="modalHead"><h3>Add Stock</h3><button class="close" onclick="closeModal()">×</button></div><div class="notice" style="margin:12px 0">Current stock: <b>${fmt(db.inventory[cat][name])} ${cat==="raw"?"KG":"PCS"}</b><br>New quantity will be added — existing stock will not be overwritten.</div><div class="form"><div class="field"><label>Add Quantity</label><input id="addQty" type="number" min="0" step="0.001"></div><button class="btn green" onclick="commitAddStock('${cat}',${JSON.stringify(name)})">＋ Add</button></div>`);
+}
+function commitAddStock(cat,name){let q=Number(document.getElementById("addQty").value||0);if(q<0)return;db.inventory[cat][name]=Number(db.inventory[cat][name]||0)+q;saveDB();closeModal();openInventoryCategory(cat);toast("Stock added")}
+function editInventory(cat,name){
+ openModal(`<div class="modalHead"><h3>Edit Stock</h3><button class="close" onclick="closeModal()">×</button></div><div class="notice" style="margin:12px 0">${esc(name)}</div><div class="form"><div class="field"><label>Current Stock</label><input id="editQty" type="number" min="0" step="0.001" value="${db.inventory[cat][name]||0}"></div><button class="btn green" onclick="commitEditStock('${cat}',${JSON.stringify(name)})">Save Stock</button></div>`);
+}
+function commitEditStock(cat,name){db.inventory[cat][name]=Number(document.getElementById("editQty").value||0);saveDB();closeModal();openInventoryCategory(cat);toast("Stock updated")}
+function inventoryDelta(cat,name,delta){if(!name||!db.inventory[cat][name]&&db.inventory[cat][name]!==0)return;db.inventory[cat][name]=Number(db.inventory[cat][name]||0)+delta;if(db.inventory[cat][name]<0)throw new Error(name+" stock insufficient")}
+function transactionForBatch(b,sign=1){
+ if(b.rawMaterial&&b.rawQty)inventoryDelta("raw",b.rawMaterial,-sign*Number(b.rawQty));
+ if(b.packingMaterial){
+  let net=Number(b.packingUsed||0)-Number(b.packingReturn||0);
+  inventoryDelta("packing",b.packingMaterial,-sign*net);
+ }
+ if(b.sticker){
+  let net=Number(b.stickerTaken||0)-Number(b.stickerReturn||0);
+  inventoryDelta("sticker",b.sticker,-sign*net);
+ }
+ if(b.box){
+  let net=Number(b.boxTaken||0)-Number(b.boxReturn||0);
+  inventoryDelta("box",b.box,-sign*net);
+ }
+ // Package-size-specific pouch deduction. Each package size stores its own pouch selection.
+ const sizes=b.packages||{};Object.values(sizes).forEach(v=>{let q=Number(v?.qty||0),m=v?.material||"";if(q&&m)inventoryDelta("packing",m,-sign*q)})
+}
+function collectBatch(){
+ let members=[...document.querySelectorAll("[data-member]")].map(x=>x.value.trim()).filter(Boolean);
+ let packages={};document.querySelectorAll(".pkgQty").forEach(x=>{let q=Number(x.value||0),m=document.querySelector(`.pkgMat[data-size="${CSS.escape(x.dataset.size)}"]`)?.value||"";packages[x.dataset.size]={qty:q,material:m}});
+ let files=[...document.getElementById("files").files].slice(0,30).map(f=>({name:f.name,size:f.size,type:f.type}));
+ return {product:v("product"),batchNo:v("batchNo").trim(),rawMaterial:v("rawMaterial"),variant:v("variant"),rawQty:num("rawQty"),roaster:v("roaster"),seasoning:v("seasoning"),cooling:v("cooling"),members,nitrogen:v("nitrogen"),packedQty:num("packedQty"),packages,fg:num("fg"),damage:num("damage"),fgReturn:num("fgReturn"),rejection:num("rejection"),selfLife:v("selfLife"),pouchesPerBox:num("pouchesPerBox"),packingMaterial:v("packingMaterial"),packingUsed:num("packingUsed"),packingTaken:num("packingTaken"),packingDamage:num("packingDamage"),packingReturn:num("packingReturn"),sticker:v("sticker"),stickerTaken:num("stickerTaken"),stickerReturn:num("stickerReturn"),box:v("box"),boxTaken:num("boxTaken"),boxReturn:num("boxReturn"),pallet:v("pallet"),movement:v("movement"),stage:v("stage"),progress:num("progress"),files,notes:v("notes"),updatedAt:new Date().toISOString()};
+}
+function v(id){return document.getElementById(id).value}function num(id){return Number(v(id)||0)}
+function saveBatch(e){e.preventDefault();let b=collectBatch();if(!b.batchNo)return toast("Batch Number required");
+ let idx=db.batches.findIndex(x=>x.batchNo===b.batchNo),old=idx>=0?db.batches[idx]:null;
+ try{
+  if(old)transactionForBatch(old,-1);
+  else if(db.batches.some(x=>x.batchNo===b.batchNo))throw new Error("Duplicate Batch Number");
+  transactionForBatch(b,1);
+  if(old)b.createdAt=old.createdAt;b.history=old?.history||[];
+  b.history.push({time:new Date().toISOString(),stage:b.stage,progress:b.progress});
+  if(old)db.batches[idx]=b;else db.batches.unshift(b);
+  saveDB();toast(old?"Batch updated":"Batch created");resetProduction();go("batches");
+ }catch(err){try{if(old)transactionForBatch(old,1)}catch{}toast("Stock issue: "+err.message)}
+}
+function resetProduction(){document.getElementById("productionForm").reset();document.getElementById("editingBatch").value="";document.getElementById("memberGrid").innerHTML="";document.getElementById("packageGrid").innerHTML="";refreshSelections();document.getElementById("fileNames").textContent="No files selected";document.getElementById("progressBar").style.width="25%"}
+document.getElementById("files").addEventListener("change",e=>{let a=[...e.target.files];document.getElementById("fileNames").textContent=a.length?`${a.length} file(s): ${a.slice(0,8).map(x=>x.name).join(", ")}${a.length>8?" …":""}`:"No files selected"});
+document.getElementById("progress").addEventListener("change",e=>document.getElementById("progressBar").style.width=e.target.value+"%");
+function renderBatches(){
+ let q=(document.getElementById("batchSearch").value||"").toLowerCase(),arr=db.batches.filter(b=>(b.batchNo+" "+b.product).toLowerCase().includes(q));
+ document.getElementById("batchList").innerHTML=arr.length?arr.map(batchCard).join(""):`<div class="notice">No batch found.</div>`;
+}
+function batchCard(b){
+ return `<div class="item"><div class="itemTop"><div><h3>${esc(b.batchNo)}</h3><div class="muted">${esc(b.product)} • ${esc(b.variant)}</div></div><div class="statusPill">${esc(b.progress)}% • ${esc(b.stage)}</div></div><div class="progress" style="margin:11px 0"><i style="width:${Number(b.progress)||0}%"></i></div><div class="muted">Raw: ${esc(b.rawMaterial)} ${fmt(b.rawQty)} KG • FG: ${fmt(b.fg)}</div><div class="itemActions"><button class="btn small" onclick="viewBatch(${JSON.stringify(b.batchNo)})">View Details</button><button class="btn small" onclick="editBatch(${JSON.stringify(b.batchNo)})">Edit</button><button class="btn small green" onclick="quickStatus(${JSON.stringify(b.batchNo)})">Update Status</button></div></div>`;
+}
+function viewBatch(no){
+ let b=db.batches.find(x=>x.batchNo===no);if(!b)return;
+ let pkg=Object.entries(b.packages||{}).filter(([,v])=>Number(v?.qty||0)).map(([s,v])=>`${s}: ${v.qty} pouches${v.material?" • "+v.material:""}`).join(" • ")||"—";
+ openModal(`<div class="modalHead"><h3>${esc(b.batchNo)}</h3><button class="close" onclick="closeModal()">×</button></div>
+ <div class="list" style="margin-top:12px">
+ <div class="item"><b>${esc(b.product)}</b><div class="muted">${esc(b.variant)}</div><p>Stage: <b>${esc(b.stage)} • ${b.progress}%</b></p><div class="progress"><i style="width:${b.progress}%"></i></div></div>
+ <div class="item"><table>${detailRows(b)}</table></div>
+ <div class="item"><b>Package sizes</b><p class="muted">${esc(pkg)}</p></div>
+ <div class="item"><b>Files</b><p class="muted">${(b.files||[]).map(f=>esc(f.name)).join("<br>")||"No file metadata saved"}</p></div>
+ <div class="item"><b>Updates / History</b>${(b.history||[]).slice().reverse().map(h=>`<p class="muted">${new Date(h.time).toLocaleString()} — ${esc(h.stage)} — ${h.progress}%</p>`).join("")||"<p class='muted'>No updates</p>"}</div>
+ </div>`);
+}
+function detailRows(b){
+ let rows=[["Product",b.product],["Raw Material",b.rawMaterial],["Raw Quantity",fmt(b.rawQty)+" KG"],["Roasting Operator",b.roaster],["Seasoning Person",b.seasoning],["Cooling Time",b.cooling],["Packed Members",(b.members||[]).join(", ")],["Nitrogen",b.nitrogen],["Packed Quantity",fmt(b.packedQty)],["FG",fmt(b.fg)],["Damage",fmt(b.damage)],["Return",fmt(b.fgReturn)],["FG Rejection",fmt(b.rejection)],["Self Life",b.selfLife],["Packing Material",b.packingMaterial],["Packing Used",fmt(b.packingUsed)+" PCS"],["Packing Damage",fmt(b.packingDamage)+" PCS"],["Packing Return",fmt(b.packingReturn)+" PCS"],["Sticker",b.sticker],["Sticker Taken",fmt(b.stickerTaken)],["Sticker Return",fmt(b.stickerReturn)],["Box",b.box],["Box Taken",fmt(b.boxTaken)],["Box Return",fmt(b.boxReturn)],["Pouches / Box",fmt(b.pouchesPerBox)],["Pallet",b.pallet],["Movement Person",b.movement],["Notes",b.notes]];return rows.map(r=>`<tr><th>${esc(r[0])}</th><td>${esc(r[1]??"—")}</td></tr>`).join("")
+}
+function editBatch(no){
+ let b=db.batches.find(x=>x.batchNo===no);if(!b)return;go("production");
+ setTimeout(()=>{
+  [["product",b.product],["batchNo",b.batchNo],["variant",b.variant],["rawQty",b.rawQty],["cooling",b.cooling],["nitrogen",b.nitrogen],["packedQty",b.packedQty],["fg",b.fg],["damage",b.damage],["fgReturn",b.fgReturn],["rejection",b.rejection],["selfLife",b.selfLife],["pouchesPerBox",b.pouchesPerBox],["packingUsed",b.packingUsed],["packingTaken",b.packingTaken],["packingDamage",b.packingDamage],["packingReturn",b.packingReturn],["stickerTaken",b.stickerTaken],["stickerReturn",b.stickerReturn],["boxTaken",b.boxTaken],["boxReturn",b.boxReturn],["pallet",b.pallet],["notes",b.notes]].forEach(([id,val])=>document.getElementById(id).value=val??"");
+  document.getElementById("rawMaterial").value=b.rawMaterial||"";document.getElementById("roaster").value=b.roaster||"";document.getElementById("seasoning").value=b.seasoning||"";document.getElementById("packingMaterial").value=b.packingMaterial||"";document.getElementById("sticker").value=b.sticker||"";document.getElementById("box").value=b.box||"";document.getElementById("movement").value=b.movement||"";document.getElementById("stage").value=b.stage||"Raw Material";document.getElementById("progress").value=b.progress||25;document.getElementById("progressBar").style.width=(b.progress||25)+"%";
+  document.querySelectorAll("[data-member]").forEach((x,i)=>x.value=(b.members||[])[i]||"");document.querySelectorAll(".pkgQty").forEach(x=>{let v=(b.packages||{})[x.dataset.size]||{};x.value=v.qty||"";let m=document.querySelector(`.pkgMat[data-size="${CSS.escape(x.dataset.size)}"]`);if(m)m.value=v.material||"";});document.getElementById("editingBatch").value=no;
+ },50)
+}
+function quickStatus(no){
+ let b=db.batches.find(x=>x.batchNo===no);if(!b)return;let stages=["Raw Material","Roasting","Seasoning","Cooling","Packing","FG Completed","Boxing","Pallet","Movement","Completed"],i=Math.max(0,stages.indexOf(b.stage));i=Math.min(i+1,stages.length-1);b.stage=stages[i];b.progress=i===stages.length-1?100:Math.min(25+i*10,100);b.history=b.history||[];b.history.push({time:new Date().toISOString(),stage:b.stage,progress:b.progress});b.updatedAt=new Date().toISOString();saveDB();renderAll();toast("Running status updated")}
+function renderEmployees(){document.getElementById("employeeList").innerHTML=db.employees.length?db.employees.map((e,i)=>`<div class="item"><div class="itemTop"><div><h3>${esc(e.name)}</h3><div class="muted">Shift: ${esc(e.shift)}</div></div><button class="btn small" onclick="openEmployeeModal(${i})">✏️ Edit</button></div></div>`).join(""):`<div class="notice">No employees yet.</div>`}
+function openEmployeeModal(i=null){let e=i==null?{name:"",shift:""}:db.employees[i];openModal(`<div class="modalHead"><h3>${i==null?"Add Employee":"Edit Employee"}</h3><button class="close" onclick="closeModal()">×</button></div><div class="form" style="margin-top:14px"><div class="field"><label>Employee Name</label><input id="empName" value="${esc(e.name)}"></div><div class="field"><label>Shift</label><input id="empShift" value="${esc(e.shift)}" placeholder="A / B / General"></div><button class="btn green" onclick="saveEmployee(${i==null?"null":i})">Save</button></div>`)}
+function saveEmployee(i){let n=document.getElementById("empName").value.trim(),s=document.getElementById("empShift").value.trim();if(!n)return toast("Name required");if(i===null)db.employees.push({name:n,shift:s});else db.employees[i]={name:n,shift:s};saveDB();closeModal();renderAll();toast("Employee saved")}
+function renderHome(){document.getElementById("statBatches").textContent=db.batches.length;document.getElementById("statEmployees").textContent=db.employees.length;let total=Object.values(db.inventory).reduce((a,c)=>a+Object.keys(c).length,0);let low=Object.values(db.inventory).reduce((a,c)=>a+Object.values(c).filter(v=>Number(v)<=0).length,0);document.getElementById("statInventory").textContent=total;document.getElementById("statLow").textContent=low;
+ let running=db.batches.filter(b=>Number(b.progress)<100);document.getElementById("homeRunning").innerHTML=running.length?running.slice(0,8).map(b=>`<div class="item"><div class="statusRow"><div><h3 style="margin:0">${esc(b.batchNo)}</h3><div class="muted">${esc(b.product)} • ${esc(b.stage)}</div></div><b>${b.progress}%</b></div><div class="progress" style="margin-top:10px"><i style="width:${b.progress}%"></i></div></div>`).join(""):`<div class="notice">No running batch.</div>`}
+function renderReports(){let fg=db.batches.reduce((a,b)=>a+Number(b.fg||0),0),rej=db.batches.reduce((a,b)=>a+Number(b.rejection||0),0),total=Object.values(db.inventory).reduce((a,c)=>a+Object.keys(c).length,0),low=Object.values(db.inventory).reduce((a,c)=>a+Object.values(c).filter(v=>Number(v)<=0).length,0);document.getElementById("repBatches").textContent=db.batches.length;document.getElementById("repFG").textContent=fmt(fg);document.getElementById("repReject").textContent=fmt(rej);document.getElementById("repInv").textContent=total;document.getElementById("repLow").textContent=low;document.getElementById("reportHistory").innerHTML=db.batches.slice(0,20).map(b=>`<div class="item"><b>${esc(b.batchNo)}</b><div class="muted">${esc(b.product)} • FG ${fmt(b.fg)} • ${esc(b.stage)} ${b.progress}%</div></div>`).join("")||`<div class="notice">No production history.</div>`}
+function openModal(html){document.getElementById("modalBox").innerHTML=html;document.getElementById("modal").classList.add("show")}function closeModal(){document.getElementById("modal").classList.remove("show")}
+function renderAll(){refreshSelections();renderHome();renderBatches();renderEmployees();renderReports();let active=document.querySelector(".page.active")?.id;if(active==="inventory"&&document.getElementById("inventoryList").style.display==="block"){ } }
+seedMasters();refreshSelections();go("home");
+</script>
+</body>
+</html>
